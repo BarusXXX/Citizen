@@ -1,0 +1,50 @@
+:root { font-family: 'Segoe UI', Arial, sans-serif; color: #234b40; background: #f8f9f5; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; text-underline-offset: 4px; }
+a:focus-visible { outline: 3px solid #64836b; outline-offset: 5px; }
+.page-header, .page-footer { max-width: 1120px; margin: auto; padding: 26px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.page-header { border-bottom: 1px solid #dfe5db; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand img { width: 48px; height: 48px; }
+.brand-copy { display: flex; flex-direction: column; gap: 5px; }
+.wordmark { font-size: 26px; font-weight: 800; letter-spacing: 2px; line-height: 1; }
+.wordmark span { color: #64836b; }
+.edition { font-size: 10px; letter-spacing: .6px; color: #647268; }
+nav { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; }
+nav a { display: inline-flex; align-items: center; min-height: 44px; }
+main { max-width: 1120px; margin: auto; padding: 72px 32px; }
+.eyebrow { font-size: 11px; font-weight: 650; letter-spacing: 2px; text-transform: uppercase; color: #647268; }
+h1 { font-size: clamp(36px, 6vw, 66px); font-weight: 650; line-height: 1.08; letter-spacing: -2px; margin: 20px 0 24px; max-width: 700px; }
+p { font-size: 16px; line-height: 1.8; color: #59675e; }
+.intro { font-size: 19px; max-width: 590px; }
+.hero { display: grid; grid-template-columns: 1fr 260px; align-items: center; gap: 48px; padding-bottom: 56px; }
+.logo-story { margin: 0; text-align: center; padding: 30px; border: 1px solid #dfe5db; border-radius: 24px; background: #eef2e7; }
+.logo-story img { width: 160px; height: 160px; max-width: 100%; }
+figcaption { margin-top: 24px; font-size: 11px; letter-spacing: 3px; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.card { border: 1px solid #dfe5db; border-radius: 16px; padding: 30px; background: #fffefa; }
+.card h2 { font-size: 23px; letter-spacing: -.5px; margin: 16px 0; }
+.card p { font-size: 15px; }
+.contact { grid-column: 1 / -1; background: #234b40; color: #fffefa; }
+.contact p { color: #dce8ce; }
+.contact a { font-size: clamp(20px, 4vw, 30px); overflow-wrap: anywhere; }
+.action { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; }
+.coffee-link { gap: 10px; padding: 10px 16px; border: 1px solid #d9bb65; border-radius: 8px; background: #f4e8bb; text-decoration: none; }
+.coffee-link:hover { background: #ead99b; }
+.page-footer { border-top: 1px solid #dfe5db; color: #647268; font-size: 12px; flex-wrap: wrap; }
+.legal { max-width: 800px; }
+.legal h1 { font-size: clamp(34px, 5vw, 52px); }
+.legal section { margin-top: 36px; }
+.legal h2 { font-size: 21px; margin-bottom: 12px; }
+.notice { border-left: 3px solid #64836b; padding: 14px 22px; background: #eef2e7; }
+@media (max-width: 700px) {
+  .page-header, .page-footer { padding: 20px; flex-wrap: wrap; gap: 14px; }
+  main { padding: 40px 20px; }
+  .hero { grid-template-columns: 1fr; gap: 24px; padding-bottom: 28px; }
+  .logo-story { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 24px; }
+  .logo-story img { width: 88px; height: 88px; }
+  figcaption { margin: 0; }
+  .cards { grid-template-columns: 1fr; gap: 16px; }
+  .card { padding: 24px; }
+}

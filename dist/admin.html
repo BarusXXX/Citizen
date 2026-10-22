@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#234b40" />
+    <meta name="description" content="CITIZEN central workshop session administration." />
+    <title>CITIZEN — Session administration</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script type="module" crossorigin src="./assets/admin-DYiTl-ih.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/server-api-CieTd4xs.js">
+    <link rel="stylesheet" crossorigin href="./assets/server-api-Bh3-TTBy.css">
+    <link rel="stylesheet" crossorigin href="./assets/admin-P4NuGi26.css">
+  </head>
+  <body>
+    <div id="admin-app">
+      <section id="auth-screen" class="auth-screen">
+        <div class="auth-card">
+          <img src="./citizen-mark.svg" width="54" height="54" alt="" />
+          <span class="eyebrow">CENTRAL SESSION ADMINISTRATION</span>
+          <h1>CITIZEN</h1>
+          <p id="auth-intro">Checking the central server…</p>
+          <div id="server-required" hidden><p>Drawing, local saves, and session import/export work in this browser. To collect sessions centrally, run the full CITIZEN package with its server.</p><button id="retry-server" class="secondary">Check for server</button></div>
+          <form id="setup-form" hidden>
+            <label for="setup-name">Administrator name</label>
+            <input id="setup-name" type="text" minlength="1" maxlength="80" inputmode="text" autocomplete="name" enterkeyhint="next" required placeholder="Workshop administrator" />
+            <label for="setup-password">Create administrator password</label>
+            <input id="setup-password" type="password" minlength="12" maxlength="200" autocomplete="new-password" enterkeyhint="done" required />
+            <small class="field-help">Use at least 12 characters. This server has one administrator account; the name is a display label and sign-in uses the password.</small>
+            <button type="submit">Set up administrator</button>
+          </form>
+          <form id="login-form" hidden>
+            <label for="login-password">Administrator password</label>
+            <input id="login-password" type="password" maxlength="200" autocomplete="current-password" enterkeyhint="done" required />
+            <button type="submit">Sign in</button>
+          </form>
+          <p id="auth-error" class="error" role="alert"></p>
+          <div id="admin-ready" class="admin-ready" hidden><strong>Signed in</strong><span>The administrator portal is ready below.</span></div>
+          <a href="./">Return to workshop canvas</a>
+        </div>
+      </section>
+
+      <section id="admin-shell" class="admin-shell" hidden>
+        <header class="admin-header">
+          <a class="admin-brand" href="./"><img src="./citizen-mark.svg" width="40" height="40" alt="" /><span><strong>CITIZEN</strong><small>SESSION ADMINISTRATION</small></span></a>
+          <div><span class="admin-identity" id="admin-identity"></span><a class="ghost-link" id="export-all-button" href="./api/v1/admin/export">Export all</a><a class="ghost-link" href="./">Workshop canvas</a><button class="ghost-button" id="logout-button">Sign out</button></div>
+        </header>
+        <div class="admin-layout">
+          <aside class="collection-sidebar">
+            <div class="sidebar-title"><div><span class="eyebrow">WORKSHOPS</span><h2>Collections</h2></div><button id="new-collection-button" title="New collection">+</button></div>
+            <div id="collection-list"></div>
+            <p class="sidebar-note">Sessions stay on the server until an administrator removes them.</p>
+          </aside>
+          <main class="admin-main">
+            <div id="empty-state" class="empty-state"><h1>Create or restore a workshop collection.</h1><p>Collections group sessions from enrolled kiosks and workshop devices. A CITIZEN ZIP can restore collections into a new server.</p><button id="empty-create-button">Create collection</button><button class="secondary" id="empty-import-button">Import backup ZIP</button></div>
+            <div id="library" hidden>
+              <div class="library-heading">
+                <div><span class="eyebrow">CENTRAL LIBRARY</span><h1 id="collection-title"></h1><p id="collection-summary"></p></div>
+                <div class="heading-actions"><button class="secondary" id="request-sync-button">Request full sync</button><button class="secondary" id="collection-code-button">New join code</button><button class="secondary" id="archive-button">Archive</button></div>
+              </div>
+              <div id="join-code-notice" class="join-code-notice" hidden><span>Workshop code</span><strong id="join-code-value"></strong><button id="copy-code-button">Copy</button><small>Shown once. Enter it on each kiosk with a device or group name.</small></div>
+              <section class="device-strip"><div><strong id="device-count">0 devices</strong><span id="device-status"></span></div><div id="device-list"></div></section>
+              <div class="library-toolbar">
+                <input id="session-search" type="search" inputmode="search" autocomplete="off" enterkeyhint="search" aria-label="Search session titles" placeholder="Search session titles…" />
+                <select id="device-filter"><option value="">All devices</option></select>
+                <select id="background-filter"><option value="">Map and site plans</option><option value="map">Maps</option><option value="image">Site plans</option></select>
+                <select id="backup-filter"><option value="">Any backup time</option><option value="recent">Backed up in 24 hours</option><option value="stale">Older backups</option></select>
+                <label class="date-filter">Updated from<input id="date-from-filter" type="date" /></label>
+                <label class="date-filter">Updated through<input id="date-to-filter" type="date" /></label>
+                <button class="secondary" id="import-button">Import</button>
+                <a class="button-link" id="export-button">Export ZIP</a>
+              </div>
+              <div class="bulk-bar"><label><input id="select-all" type="checkbox" /> Select all shown</label><button id="copy-selected-button" disabled>Copy selected to this browser</button><button id="copy-all-button">Copy all to this browser</button></div>
+              <div id="session-grid" class="admin-session-grid"></div>
+            </div>
+          </main>
+        </div>
+      </section>
+    </div>
+
+    <dialog id="collection-dialog">
+      <form id="collection-form" method="dialog"><div class="dialog-heading"><div><span class="eyebrow">NEW WORKSHOP</span><h2>Create collection</h2></div><button class="dialog-close" value="cancel" aria-label="Close">×</button></div><label for="collection-name">Collection name</label><input id="collection-name" maxlength="100" inputmode="text" autocomplete="off" enterkeyhint="next" required placeholder="Harbour site workshop"/><label for="collection-date">Workshop date</label><input id="collection-date" type="date"/><p class="error" id="collection-error"></p><button type="submit">Create collection</button></form>
+    </dialog>
+
+    <dialog id="import-dialog">
+      <form id="import-form"><div class="dialog-heading"><div><span class="eyebrow">RESTORE OR MERGE</span><h2>Import sessions</h2></div><button class="dialog-close" type="button" data-close="import-dialog">×</button></div><p>Choose a CITIZEN ZIP archive or one or more `.utopize.json` files. Loose JSON files are added to the selected collection.</p><input id="import-files" name="files" type="file" accept=".zip,.json,.utopize.json,application/json,application/zip" multiple required/><p class="error" id="import-error"></p><button type="submit">Validate and import</button></form>
+    </dialog>
+
+    <dialog id="viewer-dialog" class="viewer-dialog">
+      <div class="viewer-header"><div><span class="eyebrow" id="viewer-source"></span><h2 id="viewer-title"></h2></div><div><button class="secondary" id="viewer-download">Download JSON</button><button id="viewer-copy">Copy to local editor</button><button class="dialog-close" data-close="viewer-dialog" aria-label="Close">×</button></div></div>
+      <div class="viewer-layout"><div class="viewer-canvas"><div id="viewer-map"></div><svg id="viewer-overlay" aria-label="Read-only workshop drawing"></svg></div><aside class="viewer-sidebar"><section><h3>Saved views</h3><div id="viewer-views"></div></section><section><h3>Objects and tags</h3><div id="viewer-objects"></div></section><section><h3>Workshop notes</h3><p id="viewer-notes"></p></section></aside></div>
+    </dialog>
+
+    <input id="hidden-import" type="file" hidden />
+    <div id="admin-toast" role="status" hidden></div>
+  </body>
+</html>
