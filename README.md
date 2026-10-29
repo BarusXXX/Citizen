@@ -3,7 +3,16 @@
 This package contains the workshop canvas and central session administration.
 Released under the MIT License; see [LICENSE.md](LICENSE.md).
 
-Support development: [☕ Buy me a coffee](https://buymeacoffee.com/kaneborg).
+## Publish the canvas on GitHub Pages
+
+Commit the entire package at the root of your public repository, including the
+.github/ directory. In the repository's Settings → Pages → Build and deployment,
+set Source to GitHub Actions. Push to main, or run **Deploy canvas demo to GitHub
+Pages** manually from the Actions tab on main.
+
+The included workflow publishes the contents of dist/ directly. It does not need
+to install dependencies or build the app. Drawing, local saves and session
+import/export work on Pages; central administration requires the server below.
 
 ## Start the server
 

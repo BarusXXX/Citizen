@@ -30,8 +30,6 @@ figcaption { margin-top: 24px; font-size: 11px; letter-spacing: 3px; }
 .contact p { color: #dce8ce; }
 .contact a { font-size: clamp(20px, 4vw, 30px); overflow-wrap: anywhere; }
 .action { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; }
-.coffee-link { gap: 10px; padding: 10px 16px; border: 1px solid #d9bb65; border-radius: 8px; background: #f4e8bb; text-decoration: none; }
-.coffee-link:hover { background: #ead99b; }
 .page-footer { border-top: 1px solid #dfe5db; color: #647268; font-size: 12px; flex-wrap: wrap; }
 .legal { max-width: 800px; }
 .legal h1 { font-size: clamp(34px, 5vw, 52px); }
